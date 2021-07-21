@@ -14,12 +14,23 @@ let objClock = {
     getCurrentTime:function(){
         let now = new Date();
         this.hours = now.getHours();
-        this.minute = now.getMinutes();
+        this.minutes = now.getMinutes();
         this.seconds = now.getSeconds();
     },
     calculatingAngles:function(){
         this.secondsAngle = (this.seconds/60) * 360;
-        this.minutesAngle = (((this.minutes * 60) + this.secondsAngle) / 3600) * 360; 
+        this.minutesAngle = this.calculateMinuteAngle();
+    },
+    calculateMinuteAngle:function(){
+        let currentSeconds = this.minutes  * 60;
+        console.log(currentSeconds);
+        currentSeconds = currentSeconds + this.seconds;
+        console.log(currentSeconds);
+        let percentage = currentSeconds / 3600;
+        console.log(percentage);
+        let angle = percentage * 360;
+        console.log(angle);
+        return angle;
     },
     adjustHands:function(){
         this.objSecondHand.style.transform = 'rotate('+this.secondsAngle+'deg)';
